@@ -83,4 +83,4 @@ production:
   <<: *default
   database: models_pratica_production
   username: models_pratica
-  password: <%= ENV["MODELS_PRATICA_DATABASE_PASSWORD"] %>
+  password: <%= ENV["MODELS_PRATICA_DATABASE_PASSWORD"] %> 

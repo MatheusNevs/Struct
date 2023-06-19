@@ -10,6 +10,7 @@ RSpec.describe PostCategory, type: :model do
     end
   end
 
+  # É bom fazer esses mesmo testes do category, mas agora testando para o post
   context 'Testing category' do
     it 'should be invalid if nil' do
       expect(build(:post_category, category: nil, post_id: post.id)).to be_invalid

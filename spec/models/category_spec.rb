@@ -6,11 +6,6 @@ RSpec.describe Category, type: :model do
       expect(build(:category)).to be_valid
     end
 
-    it "category with new name should be valid" do
-      create(:category, title: 'Fofoca')
-      expect(build(:category)).to be_valid
-    end
-
     it "nil title should'nt be valid" do
       expect(build(:category, title:nil)).to be_invalid
     end

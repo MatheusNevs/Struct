@@ -6,4 +6,5 @@ RSpec.describe Post, type: :model do
       expect(build(:post)).to be_valid
     end
   end
+  # Adicionar testes: do content, do title
 end

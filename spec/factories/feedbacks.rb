@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :feedback do
-    like { false }
-    post { nil }
+    like {true}
+    post_id {1}
   end
 end

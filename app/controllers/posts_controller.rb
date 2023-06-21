@@ -20,7 +20,9 @@ class PostsController < ApplicationController
     end
     
     def update
-        render json: Post.update!(params[:id], post_params), status: :ok
+        post = Post.find(params[:id])
+        post.update!(post_params)
+        render json: post, status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     rescue StandardError => e

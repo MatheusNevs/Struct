@@ -52,3 +52,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
   gem 'factory_bot_rails', '~> 6.2'
 end
+
+gem 'devise'
+gem 'simple_token_authentication'
+gem 'panko_serializer'

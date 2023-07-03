@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+    acts_as_token_authentication_handler_for User
+    
     def index
         render json: Comment.all, status: :ok
     end

@@ -6,4 +6,5 @@ class Post < ApplicationRecord
     has_many :categories, through: :post_category
     has_many :feedbacks
     has_many :comments
+    belongs_to :user
 end

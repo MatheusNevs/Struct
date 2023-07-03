@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+    acts_as_token_authentication_handler_for User
+    before_action :is_admin_authentication, only: [:create, :update, :delete]
+
+
     def index
         render json: Post.all, status: :ok
     rescue StandardError => e

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -34,6 +35,15 @@ Rails.application.routes.draw do
       post 'create', to: 'comments#create'
       patch 'update/:id', to: 'comments#update'
       delete 'delete/:id', to: 'comments#delete'
+    end
+
+    scope 'users' do
+      get 'login', to: 'users#login'
+      get '', to: 'users#index'
+      get ':email', to: 'users#show'
+      post 'create', to: 'users#create'
+      patch 'update/:email', to: 'users#update'
+      delete 'delete/:email', to: 'users#delete'
     end
   end
 end

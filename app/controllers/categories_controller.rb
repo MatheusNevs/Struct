@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+    acts_as_token_authentication_handler_for User
+    before_action :is_admin_authentication, except: [:index, :show]
     def index
         render json: Category.all, status: :ok
     end

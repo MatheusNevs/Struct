@@ -4,13 +4,13 @@ class PostsController < ApplicationController
 
 
     def index
-        render json: Post.all, status: :ok
+        render json: array_serializer(Post.all), status: :ok
     rescue StandardError => e
         render json: {error:e.message}, status: :bad_request
     end
     
     def show
-        render json: Post.find(params[:id]), status: :ok
+        render json: serializer(Post.find(params[:id])), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     end
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     def create
         post = Post.new(post_params)
         post.save!
-        render json: post, status: :created
+        render json: serializer(post), status: :created
     rescue StandardError => e
         render json: { error: e.message }, status: :bad_request
     end
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     def update
         post = Post.find(params[:id])
         post.update!(post_params)
-        render json: post, status: :ok
+        render json: serializer(post), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     rescue StandardError => e
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     def delete
         post = Post.find(params[:id])
         post.destroy!
-        render json: post, status: :ok
+        render json: serializer(post), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     rescue StandardError => e
@@ -50,4 +50,13 @@ class PostsController < ApplicationController
             
         )
     end
+
+    def array_serializer(posts)
+        Panko::ArraySerializer.new(posts, each_serializer: PostSerializer).to_json
+    end
+
+    def serializer(post)
+        PostSerializer.new.serialize_to_json(post)
+    end
+
 end

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     def login
         user = User.find_by(email: params[:email])
         if user.valid_password?(params[:password])
-            render json: user, status: :ok
+            render json: serializer(user), status: :ok
         else
             render json:'Senha Inválida', status: :unauthorized
         end
@@ -14,14 +14,14 @@ class UsersController < ApplicationController
     end
 
     def index
-        render json: User.all, status: :ok
+        render json: array_serializer(User.all), status: :ok
     rescue StandardError => e
         render json: {error:e.message}, status: :bad_request
     end
     
     def show
         user = User.find(params[:email])
-        render json: user, status: :ok
+        render json: serializer(user), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     def create
         user = User.new(user_params)
         user.save!
-        render json: user, status: :created
+        render json: serializer(user), status: :created
     rescue StandardError => e
         render json: { error: e.message }, status: :bad_request
     end
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     def update
         user = current_user
         user.update!(user_params)
-        render json: user, status: :ok
+        render json: serializer(user), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     rescue StandardError => e
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     def delete
         user = current_user
         user.destroy!
-        render json: user, status: :ok
+        render json: serializer(user), status: :ok
     rescue ActiveRecord::RecordNotFound => e
         render json: { error: e.message }, status: :not_found
     rescue StandardError => e
@@ -61,4 +61,11 @@ class UsersController < ApplicationController
         )
     end
 
+    def array_serializer(users)
+        Panko::ArraySerializer.new(users, each_serializer: UserSerializer).to_json
+    end
+
+    def serializer(user)
+        UserSerializer.new.serialize_to_json(user)
+    end
 end

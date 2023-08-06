@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Category.create(name: "Pessoal")
-Category.create(name: "Estudos")
-Category.create(name: "Empresarial")
+Category.create(title: "Pessoal")
+Category.create(title: "Estudos")
+Category.create(title: "Empresarial")
 
 
 Post.create(title: "Facu na unibas", content: "Como a faculdade é difícil pelo amor de deus #cansado, não espero as férias chegarem")
@@ -17,7 +17,7 @@ PostCategory.create(post_id: 1, category_id: 2)
 Post.create(title: "Cálculo I", content: "A última prova de cálculo I de 2023.1 será dia 14/07, venha estudar com a gente pelo nosso discord")
 PostCategory.create(post_id: 2, category_id: 2)
 PostCategory.create(post_id: 2, category_id: 1)
-Post.create(title: "Ibovespa", content: "Hoje, devido à situação caótica da política internacional, o Ibovespa sentiu uma queda de 1,3%")
+Post.create(title: "Ibovespa", content: "Hoje, devido à situação caótica da política internacional, o Ibovespa sentiu uma queda de 1,3%").post_image.attach(io: File.open('./public/botafogo.jpeg'), filename:("botafogo.jpeg"))
 PostCategory.create(post_id: 3, category_id: 3)
 PostCategory.create(post_id: 3, category_id: 2)
 
@@ -35,3 +35,5 @@ Comment.create(content: 'Opa, eu vou querer emm. Esse conteúdo novo de integral
 Comment.create(content: 'Que massa, se pa apareco nesse discord aí, to meio mal em cálculo!', post_id: 2)
 Comment.create(content:'O mercado anda muito instável, tenho muitas aplicações na bolsa e confesso que estou preocupado...', post_id: 3)
 Comment.create(content: 'Da nada, jaja o ibovespa sobe de novo com certeza!!', post_id: 3)
+
+User.create({name: "James da Salada de Frutas", email: "jamesalada@gmail.com", password: "james123", is_admin: false}).profile_pictures.attach(io: File.open("./public/james.jpg"), filename: ("james.jpg"))

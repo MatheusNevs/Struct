@@ -7,4 +7,6 @@ class Post < ApplicationRecord
     has_many :feedbacks
     has_many :comments
     belongs_to :user
+
+    has_one_attached :post_image
 end
